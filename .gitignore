@@ -78,3 +78,9 @@ legacy/
 
 # GOECKOH duplicate (keep canonical in GOECKOH/)
 # GOECKOH/ (commented out - needed for canonical system)
+
+# Large model files (use Git LFS or download separately)
+assets/model_*/*.onnx
+assets/model_*/*.int8.onnx
+*.onnx
+*.int8.onnx
