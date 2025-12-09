@@ -46,9 +46,14 @@ case "$MODE" in
         echo -e "${GREEN}🚀 Launching GUI mode...${NC}"
         echo ""
         
-        # Try PySide6 GUI first (preferred)
+        # Activate venv if available
+        if [ -d "venv" ] && [ -f "venv/bin/activate" ]; then
+            source venv/bin/activate
+        fi
+        
+        # Try PySide6 GUI first (preferred - functional GUI)
         if python3 -c "import PySide6" 2>/dev/null; then
-            echo -e "${BLUE}→ Starting PySide6 GUI...${NC}"
+            echo -e "${BLUE}→ Starting Functional PySide6 GUI (with real system integration)...${NC}"
             python3 -m apps.run_gui
         # Fallback to Kivy GUI
         elif python3 -c "import kivy" 2>/dev/null; then
@@ -56,8 +61,15 @@ case "$MODE" in
             python3 -m apps.gui_main
         # Fallback to system launcher
         else
-            echo -e "${BLUE}→ Starting system launcher (universe mode)...${NC}"
-            python3 system_launcher.py --mode universe
+            echo -e "${YELLOW}⚠ No GUI framework found. Installing PySide6...${NC}"
+            pip install PySide6 2>&1 | tail -5
+            if python3 -c "import PySide6" 2>/dev/null; then
+                echo -e "${BLUE}→ Starting PySide6 GUI...${NC}"
+                python3 -m apps.run_gui
+            else
+                echo -e "${RED}❌ Failed to install GUI. Starting system launcher (universe mode)...${NC}"
+                python3 system_launcher.py --mode universe
+            fi
         fi
         ;;
     
