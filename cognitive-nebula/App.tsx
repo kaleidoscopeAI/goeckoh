@@ -119,12 +119,12 @@ const calculateMetricsFromThought = (thought: string, imageMetrics?: ImagePalett
     if (highArousalWords.some(word => lowerThought.includes(word))) textArousal += 0.4;
     if (lowArousalWords.some(word => lowerThought.includes(word))) textArousal -= 0.2;
 
-    let certaintyScore = 0.4 + (Math.min(wordCount, 50) / 50) * 0.5;
-    let coherenceScore = 0.5 + (certaintyScore - 0.4) * 0.8;
-    let resonanceScore = 0.4 + (Math.min(wordCount, 50) / 50) * 0.4;
+    const certaintyScore = 0.4 + (Math.min(wordCount, 50) / 50) * 0.5;
+    const coherenceScore = 0.5 + (certaintyScore - 0.4) * 0.8;
+    const resonanceScore = 0.4 + (Math.min(wordCount, 50) / 50) * 0.4;
     let curiosityScore = Math.random() * 0.3 + 0.2;
     if (lowerThought.includes('?')) curiosityScore += 0.3;
-    let dominanceScore = 0.3 + certaintyScore * 0.4;
+    const dominanceScore = 0.3 + certaintyScore * 0.4;
 
     let finalValence = textValence;
     let finalArousal = textArousal;
