@@ -138,13 +138,13 @@ git log --oneline
 Discard changes to a specific file:
 
 ```bash
-git checkout -- filename.py
+git restore filename.py
 ```
 
 Unstage a file (keep changes but remove from staging):
 
 ```bash
-git reset HEAD filename.py
+git restore --staged filename.py
 ```
 
 ## Best Practices
