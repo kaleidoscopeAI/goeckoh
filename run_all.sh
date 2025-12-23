@@ -35,11 +35,35 @@ elif [ -d "new_venv" ]; then
 fi
 
 # Check if dependencies are installed
+echo -e "${GREEN}Checking critical dependencies...${NC}"
+MISSING_DEPS=0
+
 if ! python -c "import yaml" 2>/dev/null; then
-    echo -e "${YELLOW}Installing dependencies...${NC}"
+    echo -e "${YELLOW}  - PyYAML: missing${NC}"
+    MISSING_DEPS=1
+fi
+
+if ! python -c "import aiohttp" 2>/dev/null; then
+    echo -e "${YELLOW}  - aiohttp: missing${NC}"
+    MISSING_DEPS=1
+fi
+
+if ! python -c "import numpy" 2>/dev/null; then
+    echo -e "${YELLOW}  - numpy: missing${NC}"
+    MISSING_DEPS=1
+fi
+
+if [ $MISSING_DEPS -eq 1 ]; then
+    echo -e "${YELLOW}Installing missing dependencies...${NC}"
     if [ -f "requirements.txt" ]; then
         pip install -r requirements.txt
     fi
+    if [ -f "requirements_complete.txt" ]; then
+        echo -e "${YELLOW}For full functionality, consider installing:${NC}"
+        echo -e "${YELLOW}  pip install -r requirements_complete.txt${NC}"
+    fi
+else
+    echo -e "${GREEN}  All critical dependencies present.${NC}"
 fi
 
 # Configuration

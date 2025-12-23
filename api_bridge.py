@@ -86,9 +86,13 @@ class APIBridge:
             try:
                 async with self.session.post(endpoint, json=data) as response:
                     response.raise_for_status()
-                    result = await response.json()
-                    logger.debug(f"Sent {input_type} input to backend: {result}")
-                    return result
+                    try:
+                        result = await response.json()
+                        logger.debug(f"Sent {input_type} input to backend: {result}")
+                        return result
+                    except (aiohttp.ContentTypeError, ValueError) as e:
+                        logger.error(f"Invalid JSON response for {input_type}: {e}")
+                        return {"error": "invalid_json", "message": str(e)}
             except aiohttp.ClientError as e:
                 logger.warning(f"Attempt {attempt + 1} failed for {input_type}: {e}")
                 if attempt < self.config.retry_attempts - 1:
@@ -132,9 +136,13 @@ class APIBridge:
         try:
             async with self.session.get(endpoint) as response:
                 if response.status == 200:
-                    command = await response.json()
-                    await self._process_command(command)
-                    return command
+                    try:
+                        command = await response.json()
+                        await self._process_command(command)
+                        return command
+                    except (aiohttp.ContentTypeError, ValueError) as e:
+                        logger.error(f"Invalid JSON in command response: {e}")
+                        return None
                 elif response.status == 204:
                     # No commands available
                     return None
@@ -168,7 +176,11 @@ class APIBridge:
         try:
             async with self.session.post(endpoint, json=status) as response:
                 response.raise_for_status()
-                return await response.json()
+                try:
+                    return await response.json()
+                except (aiohttp.ContentTypeError, ValueError) as e:
+                    logger.error(f"Invalid JSON response from backend: {e}")
+                    return {"error": "invalid_json", "message": str(e)}
         except aiohttp.ClientError as e:
             logger.error(f"Error sending status: {e}")
             return {}

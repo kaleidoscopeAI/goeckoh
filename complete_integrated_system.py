@@ -12,7 +12,12 @@ from pathlib import Path
 from typing import Optional
 import yaml
 
-from api_bridge import APIBridge, BridgeConfig
+try:
+    from api_bridge import APIBridge, BridgeConfig
+except ImportError as e:
+    print(f"Error: Cannot import api_bridge module: {e}")
+    print("Please ensure api_bridge.py is present and dependencies are installed.")
+    sys.exit(1)
 
 logger = logging.getLogger(__name__)
 
