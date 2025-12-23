@@ -1,4 +1,70 @@
-Minimal Python AI-Agent scaffold for validating a system config and starting a simple REPL agent.
+# Goeckoh - Assistive Platform Monorepo
+
+This repository is being restructured as a monorepo to support multiple integrated packages for the assistive platform, including voice client, mobile client, web dashboard, backend services, and shared models.
+
+## Repository Structure
+
+```
+goeckoh/
+├── packages/
+│   ├── voice/              # Voice client (echovoice to be imported)
+│   ├── mobile-client/      # Mobile application
+│   ├── web-dashboard/      # Web-based dashboard
+│   ├── backend/            # Backend services
+│   └── shared-models/      # Shared data models and utilities
+├── .github/
+│   └── workflows/          # CI/CD workflows
+└── [existing root files]   # Legacy Python CLI and system files
+```
+
+## Monorepo Integration Plan
+
+This PR scaffolds the monorepo structure and prepares for integrating the echovoice package.
+
+### Next Steps: Importing Echovoice
+
+**IMPORTANT:** The `packages/voice` directory is a placeholder. To import the local echovoice code:
+
+1. **Copy the local echovoice folder into packages/voice:**
+   ```bash
+   # From the repository root
+   cp -r /home/jacob/Desktop/echovoice/* packages/voice/
+   ```
+
+2. **Verify the import:**
+   ```bash
+   ls -la packages/voice/
+   ```
+
+3. **Stage and commit the changes:**
+   ```bash
+   git add packages/voice/
+   git commit -m "feat: Import echovoice package"
+   ```
+
+4. **Push and create a follow-up PR:**
+   ```bash
+   git push origin <your-branch-name>
+   # Then create a PR for review
+   ```
+
+See `packages/voice/README.md` for detailed instructions.
+
+## Workspace Setup
+
+This monorepo uses npm/yarn workspaces for package management:
+
+```bash
+# Install all dependencies across packages
+npm install
+
+# Run scripts from root
+npm run <script-name>
+```
+
+## Legacy Python CLI
+
+The root directory still contains the original Python AI-Agent scaffold. For legacy CLI usage:
 
 Quick start:
 1. python -m venv venv
@@ -11,36 +77,10 @@ Commands:
 - python -m cli fix       # auto-fix common issues in config.yaml
 - python -m cli start     # start a REPL with the agent
 
-The default config.yaml includes guidance from the tools instructions.
+## Contributing
 
-Speak command (voice cloning required)
-- This CLI enforces voice cloning. There is no fallback to local TTS.
-- You MUST provide a clean WAV sample of your voice either via:
-  - The config (voice_profile_path), or
-  - The CLI (--voice-profile)
-- The sample must be at least the minimum duration (default: 5 seconds) and sampled at 16kHz where possible.
-- Example:
-  - Record 5s and use recorded sample for cloning:
-    python -m cli speak --record --duration 5 --voice-profile ./sample_voice.wav
-  - Use an existing WAV sample and an input file to correct and play:
-    python -m cli speak --input-file ./input.wav --voice-profile ./sample_voice.wav
+Please create feature branches for new work and submit PRs for review. Each package may have its own build and test scripts - see individual package READMEs.
 
-Read documents
-- Read all .txt/.md/.pdf files from a folder and its subfolders:
-  python -m cli read-docs --path ./documents --recursive
-- The command defaults to recursive reading. Use --no-recursive to restrict to the top-level folder only.
-- Make sure the documents_path in config.yaml points to your folder if you don't pass --path.
-- Subfolder contents are ingested and summarized automatically.
+## License
 
-Read code
-- Read all .py files from a folder and its subfolders:
-  python -m cli read-code --path ./project --recursive
-- The command defaults to recursive reading. Use --no-recursive to restrict to the top-level folder only.
-- The command uses the same config.documents_path as a fallback if --path is not provided.
-
-Notes:
-- Voice cloning uses Coqui TTS and resemblyzer. The following packages are required — they are large and may require a GPU for fast synthesis:
-  - TTS (Coqui TTS)
-  - resemblyzer
-- If the voice profile is missing, or the libraries cannot be initialized, the CLI will exit with an error.
-- For accurate cloning, provide a clean voice sample (>= 5s) sampled at 16kHz WAV format.
+MIT License - see LICENSE file for details.
