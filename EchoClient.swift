@@ -75,9 +75,8 @@ class EchoClient: NSObject, WebSocketDelegate, ObservableObject {
                 self.isConnected = false
                 self.log("Error: \(error?.localizedDescription ?? "Unknown error")")
             }
-        case .peerClosed:
+            case .peerClosed:
             log("Peer closed connection")
-            break
         }
     }
     
