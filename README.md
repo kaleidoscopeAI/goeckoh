@@ -1,3 +1,118 @@
+# Goeckoh - Assistive Platform Monorepo
+
+Welcome to the **Goeckoh** assistive platform monorepo! This repository consolidates multiple packages and services that work together to provide a comprehensive assistive technology solution.
+
+## Monorepo Structure
+
+This repository uses npm/yarn workspaces to manage multiple related packages:
+
+```
+packages/
+├── voice/              # Voice client (echovoice) - to be imported
+├── mobile-client/      # Mobile application
+├── web-dashboard/      # Web-based dashboard
+├── backend/            # Backend services and APIs
+└── shared-models/      # Shared models and utilities
+```
+
+## Quick Start
+
+### Prerequisites
+- Node.js 18+ (for workspace management and web components)
+- Python 3.8+ (for Python-based services)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/kaleidoscopeAI/goeckoh.git
+   cd goeckoh
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Set up individual packages:**
+   Each package may have its own setup instructions. Refer to the README in each package directory.
+
+## Merge Plan and Integration
+
+### Phase 1: Scaffold Setup (Current)
+- ✅ Create monorepo structure with workspace configuration
+- ✅ Add placeholder directories for all packages
+- ✅ Set up CI/CD workflow for the monorepo
+
+### Phase 2: Import EchoVoice
+**Next Steps:** Import the local echovoice codebase into `packages/voice/`
+
+To import echovoice:
+
+1. **Copy the local echovoice directory:**
+   ```bash
+   cp -r /home/jacob/Desktop/echovoice/* packages/voice/
+   ```
+
+2. **Review and commit:**
+   ```bash
+   git add packages/voice/
+   git commit -m "Import echovoice codebase"
+   git push origin add-echovoice-scaffold
+   ```
+
+3. **Open a follow-up PR** for integration testing and documentation updates.
+
+See `packages/voice/README.md` for detailed import instructions.
+
+### Phase 3: Integration and Testing
+- Integrate echovoice with backend services
+- Create mobile client interfaces
+- Build web dashboard for monitoring and control
+- Establish shared models and utilities
+- Comprehensive integration testing
+
+### Phase 4: Production Deployment
+- Deploy backend services
+- Release mobile applications
+- Deploy web dashboard
+- Set up monitoring and analytics
+
+## Development
+
+### Working with Workspaces
+
+Run commands in a specific package:
+```bash
+npm run <script> -w packages/<package-name>
+```
+
+Run commands in all packages:
+```bash
+npm run <script> --workspaces
+```
+
+### Available Scripts
+
+Check `package.json` in the root and each package for available scripts.
+
+## Legacy Components
+
+This repository also contains legacy Python-based components that will be gradually migrated or integrated:
+
+- Python AI-Agent scaffold with REPL
+- Voice cloning with Coqui TTS
+- Configuration validation tools
+
+See legacy documentation sections below for details on these components.
+
+---
+
+## Legacy Documentation
+
+### Python AI-Agent (Legacy)
+
 Minimal Python AI-Agent scaffold for validating a system config and starting a simple REPL agent.
 
 Quick start:
