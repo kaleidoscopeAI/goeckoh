@@ -68,9 +68,11 @@ class TestIntegratedSystem(unittest.TestCase):
     @unittest.skipUnless(INTEGRATED_SYSTEM_AVAILABLE, "Integrated System not available")
     def test_default_config(self):
         """Test default configuration"""
-        system = IntegratedSystem()
+        # Use a non-existent config file to test defaults
+        system = IntegratedSystem(config_path="nonexistent.yaml")
         config = system.config
         
+        # Check for default config structure
         self.assertIn("backend", config)
         self.assertIn("echo", config)
         self.assertIn("aba", config)
