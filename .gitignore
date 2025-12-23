@@ -8,6 +8,9 @@ venv/
 new_venv/
 env/
 ENV/
+*_venv/
+integrated_venv/
+echo_env/
 build/
 develop-eggs/
 dist/
@@ -58,6 +61,11 @@ dist/
 *.tar.gz
 *.zip
 *.deb
+*.pkg
+*.dmg
+*.exe
+*.msi
+*.appimage
 
 # Temporary files
 tmp/
@@ -84,3 +92,12 @@ assets/model_*/*.onnx
 assets/model_*/*.int8.onnx
 *.onnx
 *.int8.onnx
+
+# Echovoice-specific directories to exclude
+data/
+misplaced/
+android echo/
+iOS_Project_Assets/
+
+# Generated icons
+icons/generated/
