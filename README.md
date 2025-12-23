@@ -44,3 +44,14 @@ Notes:
   - resemblyzer
 - If the voice profile is missing, or the libraries cannot be initialized, the CLI will exit with an error.
 - For accurate cloning, provide a clean voice sample (>= 5s) sampled at 16kHz WAV format.
+
+## Contributing
+
+Want to contribute to this project? Check out our [CONTRIBUTING.md](CONTRIBUTING.md) guide for detailed instructions on how to:
+- Clone the repository
+- Make changes to files
+- Commit your changes
+- Push to GitHub
+- Create pull requests
+
+For a quick reference on Git commands for committing and pushing files, see the [Git workflow section](CONTRIBUTING.md#committing-your-changes) in the contributing guide.
